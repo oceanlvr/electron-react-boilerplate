@@ -1,50 +1,21 @@
-import { MemoryRouter as Router, Switch, Route } from 'react-router-dom';
-import icon from '../../assets/icon.svg';
-import './App.css';
-
-const Hello = () => {
-  return (
-    <div>
-      <div className="Hello">
-        <img width="200px" alt="icon" src={icon} />
-      </div>
-      <h1>electron-react-boilerplate</h1>
-      <div className="Hello">
-        <a
-          href="https://electron-react-boilerplate.js.org/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              📚
-            </span>
-            Read our docs
-          </button>
-        </a>
-        <a
-          href="https://github.com/sponsors/electron-react-boilerplate"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              🙏
-            </span>
-            Donate
-          </button>
-        </a>
-      </div>
-    </div>
-  );
-};
+import routes from './routes/index';
+import { HashRouter } from 'react-router-dom';
+import { renderRoutes } from 'react-router-config';
+import Nav from './application/Nav/index';
+import { GlobalStyle } from './style';
+import { IconStyle } from '../renderer/assets/iconfont/iconfont';
+import { Provider } from 'react-redux';
+import store from './store/index';
 
 export default function App() {
   return (
-    <Router>
-      <Switch>
-        <Route path="/" component={Hello} />
-      </Switch>
-    </Router>
+    <Provider store={store}>
+      <HashRouter>
+        <GlobalStyle></GlobalStyle>
+        <IconStyle></IconStyle>
+        {renderRoutes(routes)}
+        <Nav></Nav>
+      </HashRouter>
+    </Provider>
   );
 }
